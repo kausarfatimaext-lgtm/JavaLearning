@@ -1,16 +1,6 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
-
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
-    }
-
     int primeCounter = 0;
     for(int i = 10; i < 50; i++){
         boolean isCheck = isPrime(i);
@@ -35,7 +25,6 @@ void main() {
     }
     System.out.println("Here is the sum of numbers that met the conditions: " + sum);
     System.out.println("Final sum of digits: " + sumDigits(1234));
-//    System.out.println("Are there shared value: " + hasSharedDigit(15, 55));
 //    String name = System.console().readLine("What is your name? ");
 //    System.out.println("Here is your name: " + name);
 
@@ -80,23 +69,3 @@ public static int sumDigits(int number){
     }
     return sum + number;
 }
-//public static boolean hasSharedDigit(int a, int b){
-//    if((a < 10 || a > 99)||(b < 10 || b > 99)){
-//        return false;
-//    }
-//    boolean check = false;
-//    for(int i = a; i > 0; i /= 10){
-//        int n1 = i % 10;
-//        for(int j = b; j > 0; j /= 10){
-//            int n2 = j % 10;
-//            if(n1 == n2){
-//                check = true;
-//                break;
-//            }
-//        }
-//        if(check){
-//            break;
-//        }
-//    }
-//    return check;
-//}
