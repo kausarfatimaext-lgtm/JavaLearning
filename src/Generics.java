@@ -29,7 +29,7 @@ interface Printable {
 }
 
 static class Demo<T extends Number & Printable> {
-    private java.util.List<T> items = new ArrayList<>();
+    private List<T> items = new ArrayList<>();
 
     public void addItem(T obj){
         items.add(obj);
@@ -97,12 +97,12 @@ public static class Box<U>{
         return u;
     }
 }
-public static <U> void addBox(U u, java.util.List<Box<U>> boxes){
+public static <U> void addBox(U u, List<Box<U>> boxes){
     Box<U> box = new Box<>();
     box.set(u);
     boxes.add(box);
 }
-public static <U> void outputBoxes(java.util.List<Box<U>> boxes){
+public static <U> void outputBoxes(List<Box<U>> boxes){
     for(Box<U> box: boxes){
         U boxContent = box.get();
         System.out.println("Here is box content: " + boxContent);
@@ -182,6 +182,20 @@ class Enrollment {
     }
 }
 
+// more topics
+interface Sink<T>{
+    void flush(T t);
+}
+
+public static <T> T writeAll(Collection<T> coll, Sink<? super T> snk){
+    T last = null;
+    for(T t: coll){
+        last = t;
+        snk.flush(last);
+    }
+    return last;
+}
+
 void main() {
     // Generics Multiple Types
     Pair<String, Integer> p1 = new OrderedPair<String, Integer>("Even", 8);
@@ -206,7 +220,7 @@ void main() {
     demo.compare(s1, s2);
 
     // Type Inference
-    java.util.ArrayList<Box<Integer>> listOfIntegerBoxes = new java.util.ArrayList<Box<Integer>>();
+    ArrayList<Box<Integer>> listOfIntegerBoxes = new ArrayList<Box<Integer>>();
     addBox(10, listOfIntegerBoxes);
     addBox(24, listOfIntegerBoxes);
     addBox(Integer.valueOf(35), listOfIntegerBoxes);    // no need type casting would be done automatically
@@ -237,4 +251,9 @@ void main() {
 
     Enrollment.addStudents(studentList);
     Enrollment.addStudents(objectList);
+
+    // more topics
+    Sink<Object> s = null;
+    Collection<String> cs = List.of("A", "B", "C", "D");
+    String str = writeAll(cs, s);
 }
