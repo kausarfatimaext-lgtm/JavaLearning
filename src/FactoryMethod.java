@@ -4,7 +4,7 @@ public interface XMLParser{
 }
 
 // Concrete Product
-public class ErrorXMLParser implements XMLParser{
+public static class ErrorXMLParser implements XMLParser{
     @Override
     public String parse(){
         System.out.println("Parsing error XML...");
@@ -13,7 +13,7 @@ public class ErrorXMLParser implements XMLParser{
 }
 
 // Concrete Product
-public class FeedbackXML implements XMLParser{
+public static class FeedbackXML implements XMLParser{
     @Override
     public String parse(){
         System.out.println("Parsing feedback XML...");
@@ -22,7 +22,7 @@ public class FeedbackXML implements XMLParser{
 }
 
 // Concrete Product
-public class OrderXML implements XMLParser{
+public static class OrderXML implements XMLParser{
     @Override
     public String parse(){
         System.out.println("Parsing order XML...");
@@ -31,7 +31,7 @@ public class OrderXML implements XMLParser{
 }
 
 // Concrete Product
-public class ResponseXML implements XMLParser{
+public static class ResponseXML implements XMLParser{
     @Override
     public String parse(){
         System.out.println("Parsing response XML...");
@@ -40,7 +40,7 @@ public class ResponseXML implements XMLParser{
 }
 
 // Creator
-public abstract class DisplayService{
+public static abstract class DisplayService{
     public void display(){
         XMLParser parser = getParser();
         String msg = parser.parse();
@@ -50,7 +50,17 @@ public abstract class DisplayService{
 }
 
 // Concrete Creator
-public class ErrorXMLDisplayService extends DisplayService{
+public static class ErrorXMLDisplayService extends DisplayService{
+    private static ErrorXMLDisplayService instance = null;
+    private ErrorXMLDisplayService(){}
+    public static ErrorXMLDisplayService getInstance(){
+        if(instance == null){
+            instance = new ErrorXMLDisplayService();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return instance;
+    }
     @Override
     public XMLParser getParser(){
         return new ErrorXMLParser();
@@ -58,7 +68,17 @@ public class ErrorXMLDisplayService extends DisplayService{
 }
 
 // Concrete Creator
-public class FeedbackXMLDisplayService extends DisplayService{
+public static class FeedbackXMLDisplayService extends DisplayService{
+    private static FeedbackXMLDisplayService instance = null;
+    private FeedbackXMLDisplayService(){}
+    public static FeedbackXMLDisplayService getInstance(){
+        if(instance == null){
+            instance = new FeedbackXMLDisplayService();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return null;
+    }
     @Override
     public XMLParser getParser(){
         return new FeedbackXML();
@@ -66,7 +86,17 @@ public class FeedbackXMLDisplayService extends DisplayService{
 }
 
 // Concrete Creator
-public class OrderXMLDisplayService extends DisplayService{
+public static class OrderXMLDisplayService extends DisplayService{
+    private static OrderXMLDisplayService instance = null;
+    private OrderXMLDisplayService(){}
+    public static OrderXMLDisplayService getInstance(){
+        if(instance == null){
+            instance = new OrderXMLDisplayService();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return instance;
+    }
     @Override
     public XMLParser getParser(){
         return new OrderXML();
@@ -74,22 +104,34 @@ public class OrderXMLDisplayService extends DisplayService{
 }
 
 // Concrete Creator
-public class ResponseXMLDisplayService extends DisplayService{
+public static class ResponseXMLDisplayService extends DisplayService{
+    private static ResponseXMLDisplayService instance = null;
+    private ResponseXMLDisplayService(){}
+    public static ResponseXMLDisplayService getInstance(){
+        if(instance == null){
+            instance = new ResponseXMLDisplayService();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return null;
+    }
     @Override
     public XMLParser getParser(){
         return new ResponseXML();
     }
 }
 void main() {
-    DisplayService service = new FeedbackXMLDisplayService();
+    DisplayService service = FeedbackXMLDisplayService.getInstance();
     service.display();
 
-    service = new ErrorXMLDisplayService();
+    service = ErrorXMLDisplayService.getInstance();
+    service.display();
+    service = ErrorXMLDisplayService.getInstance();
     service.display();
 
-    service = new OrderXMLDisplayService();
+    service = OrderXMLDisplayService.getInstance();
     service.display();
 
-    service = new ResponseXMLDisplayService();
+    service = ResponseXMLDisplayService.getInstance();
     service.display();
 }

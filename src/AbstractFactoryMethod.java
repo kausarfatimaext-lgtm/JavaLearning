@@ -82,6 +82,16 @@ public interface AbstractParseFactory{
 
 // Concrete Factory
 public static class NYParseFactory implements AbstractParseFactory{
+    private static NYParseFactory instance = null;
+    private NYParseFactory(){}
+    public static NYParseFactory getInstance(){
+        if(instance == null){
+            instance = new NYParseFactory();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return instance;
+    }
     @Override
     public XMLParser getParserInstance(String parseType) {
         switch (parseType){
@@ -96,6 +106,16 @@ public static class NYParseFactory implements AbstractParseFactory{
 
 // Concrete Factory
 public static class TWParseFactory implements AbstractParseFactory{
+    private static TWParseFactory instance = null;
+    private TWParseFactory(){}
+    public static TWParseFactory getInstance(){
+        if(instance == null){
+            instance = new TWParseFactory();
+            return instance;
+        }
+        System.out.println("Instance already exist");
+        return instance;
+    }
     @Override
     public XMLParser getParserInstance(String parseType) {
         switch (parseType){
@@ -108,15 +128,15 @@ public static class TWParseFactory implements AbstractParseFactory{
     }
 }
 
-// Client
+// Helper
 public static final class ParserFactoryProducer{
     private ParserFactoryProducer(){
         throw new AssertionError();
     }
     public static AbstractParseFactory getFactory(String factoryType){
         switch (factoryType){
-            case "NYFactory": return new NYParseFactory();
-            case "TWFactory": return new TWParseFactory();
+            case "NYFactory": return NYParseFactory.getInstance();
+            case "TWFactory": return TWParseFactory.getInstance();
         }
         return null;
     }
